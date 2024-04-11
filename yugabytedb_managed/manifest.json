@@ -6,6 +6,7 @@
   "tile": {
     "overview": "README.md#Overview",
     "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
     "support": "README.md#Support",
     "changelog": "CHANGELOG.md",
     "description": "Export YugabyteDB Managed cluster metrics to Datadog",
@@ -70,7 +71,9 @@
       },
       "service_checks": {
         "metadata_path": "assets/service_checks.json"
-      }
+      },
+      "source_type_id": 10408,
+      "auto_install": true
     }
   },
   "author": {
@@ -78,6 +81,5 @@
     "name": "YugabyteDB",
     "homepage": "https://yugabyte.com/",
     "sales_email": "sales@yugabyte.com"
-  },
-  "oauth": {}
+  }
 }

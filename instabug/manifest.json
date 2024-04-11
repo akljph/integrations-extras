@@ -52,12 +52,13 @@
       "Category::Issue Tracking"
     ]
   },
-  "assets": {},
+  "assets": {
+    "oauth": "assets/oauth_clients.json"
+  },
   "author": {
     "support_email": "support@instabug.com",
     "name": "Instabug",
     "homepage": "https://www.instabug.com/",
     "sales_email": "success@instabug.com"
-  },
-  "oauth": {}
+  }
 }

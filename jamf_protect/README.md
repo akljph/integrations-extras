@@ -1,17 +1,16 @@
 # Jamf Protect
 
 ## Overview
+[Jamf Protect][1] is a comprehensive security solution designed specifically for Apple endpoints, including macOS, iOS and iPadOS endpoints and other supported platforms. Jamf Protect enhances Apple's built-in security features and provides real-time detection of malicious applications, scripts, and user activities. 
 
-This check monitors [Jamf Protect][1], which enables endpoint security, threat defense, and content filtering for Apple Mobile and Mac.
+Jamf Protect not only detects known malware, adware, but also prevents unknown threats and blocks command and control traffic and risky domains. Furthermore, it provides granular insights into endpoint activity, ensuring endpoint health and compliance, and supports incident response with automated workflows. This integration will collect logs from Jamf Protect events which can be analyzed using Datadog. This integration monitors Jamf Protect logs for both macOS Security and Jamf Security Cloud.
 
 ## Setup
-
 
 ### Installation
 
 Navigate to the [Integrations page][6] and search for the "Jamf Protect" tile. 
 
-### Configuration
 
 ### Determine your Datadog Intake URL
 
@@ -23,32 +22,54 @@ Using the [Datadog API Logs documentation][7], determine what your intake URL i
 2.  Click **Create Actions**.
 3.  **Name:** Datadog.
 4.  Click **Remote Alert Collection Endpoints**.
-    a.  **URL:** `https://${DATADOG_INTAKE_URL}/api/v2/logs?ddsource=jamfprotect&service=alerts`
-    b.  Set **Min Severity & Max Severity:**.
-    c.  Click **+ Add HTTP Header**.
-        i.  Name: DD-API-KEY
-        ii.  Value: <API_Key>
-    d.  Click **+ Add HTTP Header**.
 
-        i.  Name: DD-APPLICATION-KEY
-        ii.  Value: <APPLICATION_KEY>
+    a.  **URL:** `https://${DATADOG_INTAKE_URL}/api/v2/logs?ddsource=jamfprotect&service=alerts`
+
+    b.  Set **Min Severity & Max Severity:**
+
+    c.  Click **+ Add HTTP Header**. 
+    ```
+    i.  Name: DD-API-KEY
+    ii.  Value: <API_Key>
+    ```
+            
+    d.  Click **+ Add HTTP Header**.
+    ```
+    i.  Name: DD-APPLICATION-KEY
+    ii. Value: <APPLICATION_KEY>
+    ```
+
 5.  Click **+ Unified Logs Collection Endpoints**.
+
     a.  **URL:** `https://${DATADOG_INTAKE_URL}/api/v2/logs?ddsource=jamfprotect&service=unifiedlogs`
+
     b.  Click + **Add HTTP Header**.
-            i.  **Name**: DD-API-KEY
-            ii.  **Value**: <API_Key>
+    ```
+    i.  Name: DD-API-KEY
+    ii. Value: <API_Key>
+    ```
+
     c.  Click **+ Add HTTP Header**.
-        i.  **Name**: DD-APPLICATION-KEY
-        ii.  **Value**: <APPLICATION_KEY>
+    ```
+    i.  Name: DD-APPLICATION-KEY
+    ii. Value: <APPLICATION_KEY>
+    ```
 
 6.  Click **+ Telemetry Collection Endpoints**.
-    a.  **URL: **`https://${DATADOG_INTAKE_URL}/api/v2/logs?ddsource=jamfprotect&service=telemetry`
-    b.  Click** + Add HTTP Header**.
-        i.  **Name**: DD-API-KEY
-        ii.  **Value**: <API_Key>
+
+    a.  **URL:** `https://${DATADOG_INTAKE_URL}/api/v2/logs?ddsource=jamfprotect&service=telemetry`
+
+    b.  Click **+ Add HTTP Header**.
+    ```
+    i.  Name: DD-API-KEY
+    ii. Value: <API_Key>
+    ```
+
     c.  Click **+ Add HTTP Header**.
-        i.  **Name**: DD-APPLICATION-KEY
-        ii.  **Value**: <APPLICATION_KEY>
+    ```
+    i.  Name: DD-APPLICATION-KEY
+    ii. Value: <APPLICATION_KEY>
+    ```
 
 7.  Click **Save**.
 
@@ -62,47 +83,74 @@ Using the [Datadog API Logs documentation][7], determine what your intake URL i
 4.  Select **Threat Events**.
     a.  Select **Generic HTTP**.
 5.  Click **Continue**.
+
     a.  **Configuration** **Name:** Datadog (Threat)
+
     b.  **Protocol:** **HTTPS**
+
     c.  **Server** **Hostname/IP:** `${DATADOG_INTAKE_URL}`
+
     d.  **Port:** **443**
+
     e.  **Endpoint:** `api/v2/logs?ddsource=jamfprotect&service=threatevents`
+    
     f.  **Additional Headers:**
-        i.  **Header Name:** DD-API-KEY
-            1.  Click **Create option "DD-API-KEY"**.
+
+    i.  **Header Name:** DD-API-KEY
+        
+6.  Click **Create option "DD-API-KEY"**.
+    ```
     i.  **Header Value:** <API_Key>
     ii.  **Header Name**: DD-APPLICATION-KEY
-        1.  Click **Create option "DD-APPLICATION-KEY"**.
+    ```
+7.  Click **Create option "DD-APPLICATION-KEY"**.
+    ```
     iii.  **Header Value:** <APPLICATION_KEY>
-        1.  Click **Test Configuration**.
-    7.  If successful, click **Create Configuration**.
+    ```
+    1.  Click **Test Configuration**.
+
+    2.  If successful, click **Create Configuration**.
 
 ### Network Traffic Stream
 1.  Click **Integrations**.
 2.  Click **Data Streams**.
 3.  Click **New Configuration**.
 4.  Select **Threat Events**.
+
     a.  Select **Generic HTTP**.
+
 5.  Click **Continue**.
     a.  **Configuration** **Name:** Datadog (Threat)
+
     b.  **Protocol:** **HTTPS**
+
     c.  **Server** **Hostname/IP:** `${DATADOG_INTAKE_URL}`
+
     d.  **Port:** **443**
+
     e.  **Endpoint:** `api/v2/logs?ddsource=jamfprotect&service=networktraffic`
-6.  **Additional Headers:**
-    i.  **Header Name:** DD-API-KEY
+
+    1. **Additional Headers:**
+
+        i.  **Header Name:** DD-API-KEY
+
         1.  Click **Create option "DD-API-KEY"**.
-    ii.  **Header Value:** <API_Key>
-        1.  **Header Name**: DD-APPLICATION-KEY
-    iv.  Click **Create option "DD-APPLICATION-KEY"**.
-        1.  **Header Value:** <APPLICATION_KEY>
-    6.  Click **Test Configuration**.
-    7.  If successful, click **Create Configuration**.
+
+        ii.  **Header Value:** <API_Key>
+
+           i. Header Name: DD-APPLICATION-KEY
+
+        iv.  Click **Create option "DD-APPLICATION-KEY"**.
+
+           i. Header Value: <APPLICATION_KEY>
+
+6.  Click **Test Configuration**.
+7.  If successful, click **Create Configuration**.
 
 
 ### Validation
 
-Navigate to the [Logs Explorer][5] and search for `source:jamf` to validate you are receiving logs.
+Navigate to the [Logs Explorer][5] and search for `source:jamfprotect` to validate you are receiving logs.
 
 ## Data Collected
 
@@ -134,4 +182,3 @@ Need help? Contact [Datadog support][3].
 [6]: https://app.datadoghq.com/integrations
 [7]: https://docs.datadoghq.com/api/latest/logs/#send-logs
 [8]: https://docs.datadoghq.com/getting_started/site/
-
